@@ -1,5 +1,7 @@
 module DataStructures
 
+  class IndexOutOfRange < StandardError; end
+
   class LinkedList
   
     attr_reader :size
@@ -99,7 +101,7 @@ module DataStructures
     end
     
     def assert_in_range(index)
-      raise "index out of range" unless index < @size and index >= 0
+      raise IndexOutOfRange unless index < @size and index >= 0
     end
            
     class LinkedListNode

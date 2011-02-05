@@ -16,7 +16,9 @@ describe DataStructures::LinkedList do
       list.size.should == 0
     end
     
-    it "should raise an error when trying to retrieve the first value"
+    it "should raise an error when trying to retrieve the first value" do
+      expect { list.get(0) }.should raise_error(DataStructures::IndexOutOfRange)
+    end
     
   end
   
@@ -176,6 +178,14 @@ describe DataStructures::LinkedList do
     
       it "should insert the item at the specified index" do
         concatonated_values.should == "abX"
+      end
+    
+    end
+    
+    describe "inserting at a negative index" do
+    
+      it "should raise an index out of range error" do
+        expect { list.insert(-1, nil) }.should raise_error(DataStructures::IndexOutOfRange)
       end
     
     end
