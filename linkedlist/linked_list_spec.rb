@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rspec'
-require 'linked_list'
+require File.join(File.dirname(__FILE__), 'linked_list')
 
 describe DataStructures::LinkedList do
 
@@ -182,10 +182,20 @@ describe DataStructures::LinkedList do
     
     end
     
-    describe "inserting at a negative index" do
+    describe "at a negative index" do
     
       it "should raise an index out of range error" do
         expect { list.insert(-1, nil) }.should raise_error(DataStructures::IndexOutOfRange)
+      end
+    
+    end
+    
+    describe "more than one beyond the last item" do
+    
+      let(:beyond_end) { list.size + 1 }
+    
+      it "should raise an index out of range error" do
+        expect { list.insert(beyond_end, nil) }.should raise_error(DataStructures::IndexOutOfRange)
       end
     
     end
@@ -252,6 +262,22 @@ describe DataStructures::LinkedList do
         concatonated_values.should == "bc"
       end
       
+    end
+    
+    describe "at a negative index" do
+    
+      it "should raise an index out of range error" do
+        expect { list.remove(-1) }.should raise_error(DataStructures::IndexOutOfRange)
+      end
+    
+    end
+    
+    describe "at an index after the last item" do
+    
+      it "should raise an index out of range error" do
+        expect { list.remove(list.size) }.should raise_error(DataStructures::IndexOutOfRange)
+      end
+    
     end
   
   end
