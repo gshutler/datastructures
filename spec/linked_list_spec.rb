@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rspec'
-require File.join(File.dirname(__FILE__), 'linked_list')
+require File.join(File.dirname(__FILE__), '..', 'lib', 'linked_list')
 
 describe DataStructures::LinkedList do
 
@@ -100,27 +100,7 @@ describe DataStructures::LinkedList do
     end
   
   end
-  
-  describe "iterating a list in reverse" do
-  
-    before do
-      list.append("a")
-      list.append("b")
-      list.append("c")
-    end
     
-    let(:concatonated_values) do
-      concat = ""
-      list.each_reverse {|v| concat += v}      
-      concat
-    end
-    
-    it "should yield the values in reverse order" do
-      concatonated_values.should == "cba"
-    end
-  
-  end
-  
   describe "inserting an item" do
   
     before do
