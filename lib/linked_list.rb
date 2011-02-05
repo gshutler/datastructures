@@ -138,6 +138,7 @@ module DataStructures
     end
     
     # Internal data structure for representing nodes in the list
+    # @private
     class LinkedListNode # :nodoc:
       
       attr_accessor :ancestor, :successor
