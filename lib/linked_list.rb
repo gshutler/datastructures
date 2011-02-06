@@ -7,8 +7,10 @@ module DataStructures
   # Implementation of a linked list
   class LinkedList
 
-    # Retrieve the size of the list <tt>O(1)</tt>.
-    #
+    # Retrieve the size of the list.
+    # 
+    # <tt>O(1)</tt>
+    # 
     # @return [Integer] 
     #   The size of the list
     attr_reader :size
@@ -20,7 +22,9 @@ module DataStructures
       @size = 0
     end
   
-    # Append a new value to the end of the list <tt>O(1)</tt>.
+    # Append a new value to the end of the list.
+    #
+    # <tt>O(1)</tt>
     #
     # @param value 
     #   The value to append to the list
@@ -35,7 +39,9 @@ module DataStructures
       @size += 1
     end
     
-    # Retrieve the value at the specified index <tt>O(n)</tt>.
+    # Retrieve the value at the specified index.
+    #
+    # <tt>O(n)</tt>
     #
     # @param [Integer] index
     #   The index to retrieve the value for
@@ -48,7 +54,9 @@ module DataStructures
       node.value
     end
     
-    # Insert the value at the given index <tt>O(n)</tt>.
+    # Insert the value at the given index.
+    #
+    # <tt>O(n)</tt>
     #
     # @param [Integer] index
     #   The index to retrieve the value for
@@ -72,7 +80,9 @@ module DataStructures
       end
     end
     
-    # Remove the value at the given index <tt>O(n)</tt>.
+    # Remove the value at the given index.
+    #
+    # <tt>O(n)</tt>
     # 
     # @param [Integer] index
     #   The index to remove from the list
@@ -91,15 +101,18 @@ module DataStructures
       @size -= 1
     end
     
-    # Determine whether the list is empty <tt>O(1)</tt>.
+    # Determine whether the list is empty.
+    #
+    # <tt>O(1)</tt>
     #
     # @return [Object] <tt>true</tt> if the list is empty, otherwise <tt>false</tt>
     def empty?
       @size == 0
     end
     
-    # Invoke &block for each value in the list <tt>O(n)</tt> in the order they
-    # appear.
+    # Invoke <tt>&block</tt> for each value in the list in the order they appear.
+    #
+    # <tt>O(n)</tt>
     #
     # @param [Proc] block
     #   The proc to invoke for each value in the list
@@ -114,6 +127,8 @@ module DataStructures
     
     # Create a new list that contains all the value in the current list but in 
     # the reverse order.
+    #    
+    # <tt>O(n)</tt>
     #
     # @return [LinkedList]
     #   A new list that contains all the value in the current list but in 
@@ -127,6 +142,8 @@ module DataStructures
     # Determines whether the index is greater than or equal to <tt>0</tt> and 
     # less than #size.
     #
+    # <tt>O(1)</tt>
+    #
     # @param [Integer] index
     #   The index to check for range compliance
     def in_range?(index)
@@ -136,7 +153,9 @@ module DataStructures
     private
         
     # Retrieve the node at the given index, returns <tt>nil</tt> if the index is
-    # not #in_range? <tt>O(n)</tt>.
+    # not #in_range?.
+    #
+    # <tt>O(n)</tt>
     #
     # @param [Integer] index
     #   The index to retrieve the node for
@@ -161,7 +180,9 @@ module DataStructures
       [current, previous]
     end
     
-    # Raises IndexOutOfRange if index is not #in_range?
+    # Raises IndexOutOfRange if index is not #in_range?.
+    #
+    # <tt>O(1)</tt>
     #
     # @param [Integer] index
     #   The index to check for #in_range compliance
