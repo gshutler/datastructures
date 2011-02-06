@@ -4,7 +4,7 @@ module DataStructures
   # for the data structure
   class IndexOutOfRange < StandardError; end
 
-  # Implementation of a doublely linked list
+  # Implementation of a linked list
   class LinkedList
 
     # Retrieve the size of the list <tt>O(1)</tt>.
@@ -29,7 +29,7 @@ module DataStructures
         @head = @tail = LinkedListNode.new(:value => value)
       else
         old_tail = @tail
-        @tail = LinkedListNode.new(:ancestor => old_tail, :value => value)
+        @tail = LinkedListNode.new(:value => value)
         old_tail.successor = @tail
       end
       @size += 1
@@ -44,7 +44,7 @@ module DataStructures
     #   When index is not #in_range?
     def get(index)      
       assert_in_range index
-      node = get_node(index)
+      node, previous = get_node(index)
       node.value
     end
     
@@ -63,13 +63,11 @@ module DataStructures
       else
         assert_in_range(index)
         
-        current = get_node(index)
-        inserted = LinkedListNode.new(:ancestor => current.ancestor, :successor => current, :value => value)
-        current.ancestor.successor = inserted if current.ancestor
-        current.ancestor = inserted
+        current, previous = get_node(index)
+        inserted = LinkedListNode.new(:successor => current, :value => value)
+        previous.successor = inserted if previous
         
-        @head = inserted if current == @head
-                
+        @head = inserted if current == @head                
         @size += 1
       end
     end
@@ -84,12 +82,11 @@ module DataStructures
     def remove(index)
       assert_in_range index
       
-      current = get_node(index)
-      current.ancestor.successor = current.successor if current.ancestor
-      current.successor.ancestor = current.ancestor if current.successor
+      current, previous = get_node(index)
+      previous.successor = current.successor if previous
       
       @head = current.successor if current == @head
-      @tail = current.ancestor if current == @tail
+      @tail = previous if current == @tail
       
       @size -= 1
     end
@@ -123,7 +120,7 @@ module DataStructures
     #   reverse order
     def reverse
       reversed = LinkedList.new   
-      each_reverse {|v| reversed.append(v)}
+      each {|v| reversed.insert(0, v)}
       reversed
     end
         
@@ -137,41 +134,31 @@ module DataStructures
     end
         
     private
-    
-    # Invoke &block for each value in the list <tt>O(n)</tt> in the reverse 
-    # order to that which they appear <tt>O(n)</tt>.
-    #
-    # @param [Proc] block
-    #   The proc to invoke for each value in the list, in reverse order
-    def each_reverse(&block)
-      current = @tail
-      
-      while current
-        block.yield current.value
-        current = current.ancestor
-      end
-    end
-    
+        
     # Retrieve the node at the given index, returns <tt>nil</tt> if the index is
     # not #in_range? <tt>O(n)</tt>.
     #
     # @param [Integer] index
     #   The index to retrieve the node for
     # 
-    # @return [LinkedListNode]
-    #   The node at the given index or <tt>nil</tt> if the index is not 
-    #   #in_range
+    # @return [LinkedListNode, LinkedListNode]
+    #   The node at the given index and it's ancestor or if the index is not 
+    #   #in_range and greater than #size
     def get_node(index)
-      return nil unless in_range? index
+      return [nil, @tail] if index == @size
+      return [nil, nil] unless in_range? index
     
+      previous = nil
       current = @head
       current_index = 0
       
       while current_index < index and current
+        previous = current
         current = current.successor
         current_index += 1
       end
-      current
+      
+      [current, previous]
     end
     
     # Raises IndexOutOfRange if index is not #in_range?
@@ -189,11 +176,10 @@ module DataStructures
     # @private
     class LinkedListNode # :nodoc:
       
-      attr_accessor :ancestor, :successor
+      attr_accessor :successor
       attr_reader :value
     
       def initialize(args)
-        @ancestor = args[:ancestor]
         @successor = args[:successor]
         @value = args[:value]
       end
