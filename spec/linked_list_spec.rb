@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rspec'
-require File.join(File.dirname(__FILE__), '..', 'lib', 'linked_list')
+require File.join(File.dirname(__FILE__), '..', 'lib', 'data_structures')
 
 describe DataStructures::LinkedList do
 

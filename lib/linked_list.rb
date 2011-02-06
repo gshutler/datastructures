@@ -1,9 +1,5 @@
 module DataStructures
 
-  # Error raised when a request it made with an index outside the valid range
-  # for the data structure
-  class IndexOutOfRange < StandardError; end
-
   # Implementation of a linked list
   class LinkedList
 
@@ -161,7 +157,7 @@ module DataStructures
     #   The index to retrieve the node for
     # 
     # @return [LinkedListNode, LinkedListNode]
-    #   The node at the given index and it's ancestor or if the index is not 
+    #   The node at the given index and it's ancestor if the index is not 
     #   #in_range and greater than #size
     def get_node(index)
       return [nil, @tail] if index == @size
